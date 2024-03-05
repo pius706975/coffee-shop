@@ -55,7 +55,7 @@ authValidator.validateRegister = (httpRequest) => {
             .messages({
                 'string.pattern.base':
                     'Password must at least 8 characters long, include at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
-                'any.required': 'Password is required'
+                'any.required': 'Password is required',
             }),
 
         role: Joi.number(),

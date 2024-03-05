@@ -1,9 +1,9 @@
 const AuthService = {};
+const { JWT_REFRESH_TOKEN_SECRET } = require('config');
+const bcrypt = require('bcrypt');
 const { User } = require('../../../db/models');
-const {JWT_REFRESH_TOKEN_SECRET} = require('config')
-const { NotFoundError, BadRequestError } = require('../../../utils/api.errors')
-const bcrypt = require('bcrypt')
-const JwtService = require('./jwt.service')
+const { NotFoundError, BadRequestError } = require('../../../utils/api.errors');
+const JwtService = require('./jwt.service');
 
 AuthService.Register = async (requestBody) => {
     const newUser = await User.create({
@@ -15,40 +15,41 @@ AuthService.Register = async (requestBody) => {
     return newUser;
 };
 
-AuthService.Login = async (requestBody)=>{
-    const {username, password} = requestBody
+AuthService.Login = async (requestBody) => {
+    const { username, password } = requestBody;
     const user = await User.findOne({
         where: {
-            username
-        }
-    })
+            username,
+        },
+    });
 
-    if (!user) throw new NotFoundError('Username or password is incorrect')
+    if (!user) throw new NotFoundError('Username or password is incorrect');
 
-    const validPassword = bcrypt.compareSync(password, user.password)
-    if (!validPassword) throw new BadRequestError('Username or password is incorrect')
+    const validPassword = bcrypt.compareSync(password, user.password);
+    if (!validPassword)
+        throw new BadRequestError('Username or password is incorrect');
 
     const payload = {
         userId: user.id,
-        role: user.role
-    }
+        role: user.role,
+    };
 
-    const accessToken = await JwtService.generateJWT({payload})
+    const accessToken = await JwtService.generateJWT({ payload });
 
     const refreshToken = await JwtService.generateJWT({
         payload: {
             userId: user.id,
-            role: user.role
+            role: user.role,
         },
         secretKey: JWT_REFRESH_TOKEN_SECRET,
         signOption: {
             issuer: 'coffee_shop',
             audience: 'https://example.in',
-            expiresIn: '1m'
-        }
-    })
+            expiresIn: '1m',
+        },
+    });
 
-    return {accessToken, refreshToken, ...payload}
-}
+    return { accessToken, refreshToken, ...payload };
+};
 
 module.exports = AuthService;

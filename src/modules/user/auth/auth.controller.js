@@ -16,9 +16,9 @@ AuthController.Register = async (httpRequest) => {
     return helper.generateResponse(registeredUser);
 };
 
-AuthController.Login = async (httpRequest)=>{
-    const loggedInUser = await AuthService.Login(httpRequest.body)
-    return helper.generateResponse(loggedInUser)
-}
+AuthController.Login = async (httpRequest) => {
+    const loggedInUser = await AuthService.Login(httpRequest.body);
+    return helper.generateResponse(loggedInUser);
+};
 
 module.exports = AuthController;

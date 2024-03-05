@@ -5,7 +5,7 @@ const { authRoutes } = require('../modules/user/auth/auth.module');
 const routes = [
     {
         path: '/role',
-        route: roleRoutes
+        route: roleRoutes,
     },
     {
         path: '/auth',

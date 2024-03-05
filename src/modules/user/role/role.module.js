@@ -30,5 +30,5 @@ const roleRoutes = require('./role.routes');
 
 module.exports = {
     roleService,
-    roleRoutes
+    roleRoutes,
 };
