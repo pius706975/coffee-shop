@@ -9,7 +9,7 @@ module.exports = {
      * @param {object} root0 - The input object
      * @param {object} root0.payload - The paylod to sign
      * @param {string} [root0.secretKey=JWT_ACCESS_TOKEN_SECRET] - The secret key to use for signing
-     * @param {object} [root0.sognOption=JWT_SIGN_OPTIONS] - The sign options to use
+     * @param {object} [root0.signOption=JWT_SIGN_OPTIONS] - The sign options to use
      * @returns {Promise<string>} - The generated JWT token
      * @throws {BadRequestError} - If there is an error generating the token
      */

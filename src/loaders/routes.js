@@ -1,6 +1,17 @@
 const { API_PREFIX } = require('config');
+const { roleRoutes } = require('../modules/user/role/role.module');
+const { authRoutes } = require('../modules/user/auth/auth.module');
 
-const routes = [];
+const routes = [
+    {
+        path: '/role',
+        route: roleRoutes
+    },
+    {
+        path: '/auth',
+        route: authRoutes,
+    },
+];
 
 /**
  * @param {object} app - The express app object

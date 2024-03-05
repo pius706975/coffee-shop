@@ -3,8 +3,8 @@ const notFoundHandler = require('./not.found.error');
 const errorHandler = require('./error.handler');
 const makeExpressCallback = require('./express.callback');
 const makeValidatorCallback = require('./validator.callback');
-const auth = require('./auth')
-const authorize = require('./authorize')
+const auth = require('./auth');
+const authorize = require('./authorize');
 
 module.exports = {
     badJsonHandler,
@@ -13,5 +13,5 @@ module.exports = {
     makeExpressCallback,
     makeValidatorCallback,
     auth,
-    authorize
+    authorize,
 };
