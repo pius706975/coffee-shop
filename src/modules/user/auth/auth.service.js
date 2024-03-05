@@ -52,4 +52,21 @@ AuthService.Login = async (requestBody) => {
     return { accessToken, refreshToken, ...payload };
 };
 
+AuthService.RefreshToken = async (refreshToken)=>{
+    const decodedRefreshToken = await JwtService.verifyJWT({
+        token: refreshToken
+    })
+
+    const payload = {
+        userId: decodedRefreshToken.userId,
+        role: decodedRefreshToken.role
+    }
+
+    const newAccessToken = await JwtService.generateJWT({
+        payload
+    })
+
+    return {accessToken: newAccessToken}
+}
+
 module.exports = AuthService;

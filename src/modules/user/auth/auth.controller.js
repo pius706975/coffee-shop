@@ -1,5 +1,6 @@
 const AuthService = require('./auth.service');
 const helper = require('../../../utils/helper');
+const { BadRequestError } = require('../../../utils/api.errors');
 
 const AuthController = {};
 
@@ -20,5 +21,14 @@ AuthController.Login = async (httpRequest) => {
     const loggedInUser = await AuthService.Login(httpRequest.body);
     return helper.generateResponse(loggedInUser);
 };
+
+AuthController.RefreshToken = async (httpRequest)=>{
+    const {refreshToken} = httpRequest.body
+    if (!refreshToken) throw new BadRequestError('Refresh token is missing')
+
+    const newAccessToken = await AuthService.RefreshToken(refreshToken)
+
+    return helper.generateResponse(newAccessToken)
+}
 
 module.exports = AuthController;

@@ -19,4 +19,9 @@ router.post(
     makeExpressCallback(AuthController.Login)
 );
 
+router.post(
+    '/refresh-token',
+    makeExpressCallback(AuthController.RefreshToken)
+);
+
 module.exports = router;
