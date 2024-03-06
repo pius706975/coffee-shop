@@ -13,15 +13,20 @@ router.post(
     makeExpressCallback(AuthController.Register)
 );
 
+router.post('/resend_otp', makeExpressCallback(AuthController.ResendOTP));
+
+router.post(
+    '/verify',
+    makeValidatorCallback(authValidator.ValidateVerifyAcc),
+    makeExpressCallback(AuthController.VerifyEmail)
+);
+
 router.post(
     '/login',
     makeValidatorCallback(authValidator.validateLogin),
     makeExpressCallback(AuthController.Login)
 );
 
-router.post(
-    '/refresh-token',
-    makeExpressCallback(AuthController.RefreshToken)
-);
+router.post('/refresh_token', makeExpressCallback(AuthController.RefreshToken));
 
 module.exports = router;

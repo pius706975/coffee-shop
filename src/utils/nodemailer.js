@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const sendMail = (recipient, subject, message, callback) => {
+const sendEmail = (recipient, subject, message, callback) => {
     const transporter = nodemailer.createTransport({
         // Configure SMTP transporter
         host: process.env.MAILER_HOST,
@@ -18,7 +18,8 @@ const sendMail = (recipient, subject, message, callback) => {
         from: process.env.MAILER_EMAIL,
         to: recipient,
         subject,
-        html: message,
+        // html: message,
+        text: message,
     };
 
     transporter.sendMail(mailOptions, callback);
@@ -27,6 +28,6 @@ const sendMail = (recipient, subject, message, callback) => {
 const notification = {};
 
 module.exports = {
-    sendMail,
+    sendEmail,
     notification,
 };

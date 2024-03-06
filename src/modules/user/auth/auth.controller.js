@@ -17,18 +17,47 @@ AuthController.Register = async (httpRequest) => {
     return helper.generateResponse(registeredUser);
 };
 
+AuthController.ResendOTP = async (httpRequest) => {
+    const { email } = httpRequest.body;
+
+    if (!email) throw new BadRequestError('Email is missing');
+
+    await AuthService.ResendOTP(email);
+
+    return {
+        statusCode: 200,
+        data: { message: 'OTP resent successfully' },
+    };
+};
+
+AuthController.VerifyEmail = async (httpRequest) => {
+    const { email, otp } = httpRequest.body;
+    if (!email || !otp) throw new BadRequestError('Email or OTP are missing');
+
+    const result = await AuthService.VerifyEmail(email, otp);
+
+    if (result.is_verified) {
+        return {
+            statusCode: 200,
+            data: { message: 'Email is verified' },
+        };
+    }
+
+    return null;
+};
+
 AuthController.Login = async (httpRequest) => {
     const loggedInUser = await AuthService.Login(httpRequest.body);
     return helper.generateResponse(loggedInUser);
 };
 
-AuthController.RefreshToken = async (httpRequest)=>{
-    const {refreshToken} = httpRequest.body
-    if (!refreshToken) throw new BadRequestError('Refresh token is missing')
+AuthController.RefreshToken = async (httpRequest) => {
+    const { refreshToken } = httpRequest.body;
+    if (!refreshToken) throw new BadRequestError('Refresh token is missing');
 
-    const newAccessToken = await AuthService.RefreshToken(refreshToken)
+    const newAccessToken = await AuthService.RefreshToken(refreshToken);
 
-    return helper.generateResponse(newAccessToken)
-}
+    return helper.generateResponse(newAccessToken);
+};
 
 module.exports = AuthController;

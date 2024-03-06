@@ -64,4 +64,22 @@ authValidator.validateRegister = (httpRequest) => {
     return schema.validate(httpRequest.body, options);
 };
 
+authValidator.ValidateVerifyAcc = (httpRequest) => {
+    const schema = Joi.object({
+        email: Joi.string().email().required().messages({
+            'string.base': 'Email must be a string',
+            'string.empty': 'Email is required',
+            'string.email': 'Email format is invalid',
+            'any.required': 'Email is required',
+        }),
+        otp: Joi.string().required().messages({
+            'string.base': 'OTP must be a string',
+            'string.empty': 'OTP is required',
+            'any.required': 'OTP is required',
+        }),
+    });
+
+    return schema.validate(httpRequest.body, options);
+};
+
 module.exports = authValidator;
