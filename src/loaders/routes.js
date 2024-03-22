@@ -1,6 +1,7 @@
 const { API_PREFIX } = require('config');
 const { roleRoutes } = require('../modules/user/role/role.module');
 const { authRoutes } = require('../modules/user/auth/auth.module');
+const { userRoutes } = require('../modules/user/user.module');
 
 const routes = [
     {
@@ -10,6 +11,10 @@ const routes = [
     {
         path: '/auth',
         route: authRoutes,
+    },
+    {
+        path: '/user',
+        route: userRoutes,
     },
 ];
 
