@@ -3,7 +3,8 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('Products', {
             id: {
-                type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
+                autoIncrement: true,
                 primaryKey: true,
                 allowNull: false,
             },
@@ -17,7 +18,7 @@ module.exports = {
                 type: Sequelize.DECIMAL,
             },
             category: {
-                type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
                     model: 'Categories',
