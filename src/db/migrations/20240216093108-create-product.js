@@ -29,6 +29,7 @@ module.exports = {
             },
             image: {
                 type: Sequelize.STRING,
+                allowNull: true,
             },
             sold: {
                 type: Sequelize.BIGINT,

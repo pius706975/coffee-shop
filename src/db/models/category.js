@@ -2,10 +2,10 @@ module.exports = (sequelize, DataTypes) => {
     const { Model } = sequelize.Sequelize;
     class Category extends Model {
         static associate(models) {
-            Category.hasMany(models.User, {
-                foreignKey: 'category',
-                as: 'products',
-            });
+            // Category.hasMany(models.User, {
+            //     foreignKey: 'category',
+            //     as: 'products',
+            // });
         }
     }
     Category.init(
