@@ -22,6 +22,7 @@ AuthService.Register = async (requestBody) => {
         otp_code: otp,
         otp_expiration: new Date(Date.now() + 10 * 60 * 1000), // otp code will be expired in 10 minutes
         is_verified: false,
+        image: process.env.DEFAULT_PROFILE_PICTURE,
         ...(requestBody.role && { role: requestBody.role }),
     });
 

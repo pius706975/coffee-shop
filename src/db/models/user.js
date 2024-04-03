@@ -48,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
             is_verified: {
                 type: DataTypes.BOOLEAN,
             },
+            image: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             created_at: DataTypes.DATE,
             updated_at: DataTypes.DATE,
         },

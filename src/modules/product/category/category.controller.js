@@ -1,11 +1,18 @@
+const { NotFoundError } = require('../../../utils/api.errors');
 const helper = require('../../../utils/helper');
 const CategoryService = require('./category.service');
 
 const CategoryController = {};
 
+// TODO: Create authentication and authorization for product category services
 CategoryController.AddCategory = async (httpRequest) => {
+    const authorization = httpRequest.headers.Authorization;
+    if (!authorization) throw new NotFoundError('User not found');
+
+    const accessToken = authorization.split(' ')[1];
     const newData = httpRequest.body;
-    const result = await CategoryService.AddCategory(newData);
+    const result = await CategoryService.AddCategory(accessToken, newData);
+
     return helper.generateResponse(result);
 };
 
@@ -29,7 +36,7 @@ CategoryController.DeleteCategory = async (httpRequest) => {
 
     return {
         statusCode: 200,
-        data: { message: 'Category has been deleted' },
+        data: { message: 'Category is deleted successfully' },
     };
 };
 
