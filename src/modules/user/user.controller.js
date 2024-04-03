@@ -53,7 +53,7 @@ UserController.UpdatePassword = async (httpRequest) => {
 
     return {
         statusCode: 200,
-        data: 'Password is updated',
+        data: { message: 'Password is updated' },
     };
 };
 
