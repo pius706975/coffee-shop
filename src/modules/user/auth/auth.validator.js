@@ -36,6 +36,11 @@ authValidator.validateLogin = (httpRequest) => {
 authValidator.validateRegister = (httpRequest) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     const schema = Joi.object({
+        name: Joi.string().required().messages({
+            'string.base': 'Name must be a string',
+            'string.empty': 'Name is required',
+            'any.required': 'Name is required',
+        }),
         username: Joi.string().required().messages({
             'string.base': 'Username must be a string',
             'string.empty': 'Username is required',

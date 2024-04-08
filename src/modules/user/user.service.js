@@ -43,6 +43,24 @@ UserService.UpdateProfile = async (accessToken, newData) => {
     return updatedUser;
 };
 
+UserService.UpdatePicture = async (accessToken, picture) => {
+    const decodedToken = await verifyJWT({
+        token: accessToken,
+    });
+
+    const payload = {
+        userId: decodedToken.userId,
+    };
+
+    const user = await User.findByPk(payload.userId);
+    if (!user) throw new NotFoundError('User not found');
+
+    user.image = picture;
+    await user.save();
+
+    return user;
+};
+
 UserService.UpdatePassword = async (accessToken, newPassword) => {
     const decodedToken = await verifyJWT({
         token: accessToken,
