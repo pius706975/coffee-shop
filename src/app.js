@@ -11,6 +11,8 @@ const { requestLogger } = require('./support/logger');
 const corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200,
+    credential: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
 };
 
 // error handler
