@@ -8,6 +8,10 @@ module.exports = {
                 primaryKey: true,
                 allowNull: false,
             },
+            name: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             username: {
                 type: Sequelize.STRING,
                 allowNull: false,
@@ -45,6 +49,10 @@ module.exports = {
             is_verified: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false,
+            },
+            image: {
+                type: Sequelize.STRING,
+                allowNull: true,
             },
             created_at: {
                 type: Sequelize.DATE,

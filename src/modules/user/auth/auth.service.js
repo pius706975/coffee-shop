@@ -16,12 +16,14 @@ AuthService.Register = async (requestBody) => {
     const otp = generateOTP();
 
     const newUser = await User.create({
+        name: requestBody.name,
         username: requestBody.username,
         email: requestBody.email,
         password: requestBody.password,
         otp_code: otp,
         otp_expiration: new Date(Date.now() + 10 * 60 * 1000), // otp code will be expired in 10 minutes
         is_verified: false,
+        image: process.env.DEFAULT_PROFILE_PICTURE,
         ...(requestBody.role && { role: requestBody.role }),
     });
 

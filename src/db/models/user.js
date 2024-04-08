@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     }
     User.init(
         {
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
             username: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -47,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
             },
             is_verified: {
                 type: DataTypes.BOOLEAN,
+            },
+            image: {
+                type: DataTypes.STRING,
+                allowNull: true,
             },
             created_at: DataTypes.DATE,
             updated_at: DataTypes.DATE,

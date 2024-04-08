@@ -4,6 +4,14 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const { requestLogger } = require('./support/logger');
+// const {EventEmitter} = require('events')
+
+// EventEmitter.defaultMaxListeners = 100
+
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+};
 
 // error handler
 require('express-async-errors');
@@ -14,7 +22,9 @@ const {
     notFoundHandler,
 } = require('./middlewares');
 
-app.use(cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 app.use(requestLogger);
 
 // parse json body
