@@ -16,6 +16,7 @@ AuthService.Register = async (requestBody) => {
     const otp = generateOTP();
 
     const newUser = await User.create({
+        name: requestBody.name,
         username: requestBody.username,
         email: requestBody.email,
         password: requestBody.password,

@@ -31,5 +31,5 @@ $RECYCLE.BIN/
 
 /.vscode
 /node_modules
-/seeders
+seeders/
 # End of https://www.toptal.com/developers/gitignore/api/windows

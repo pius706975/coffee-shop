@@ -12,6 +12,10 @@ const options = {
 
 userValidator.ValidateUserUpdate = (httpRequest) => {
     const schema = Joi.object({
+        name: Joi.string().allow('').optional().messages({
+            'string.base': 'Name must be a string',
+            'string.empty': 'Name is required',
+        }),
         username: Joi.string().allow('').optional().messages({
             'string.base': 'Username must be a string',
             'string.empty': 'Username is required',
