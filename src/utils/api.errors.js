@@ -94,6 +94,19 @@ class InternalServerError extends APIError {
     }
 }
 
+/**
+ *
+ */
+class UnSupportedMediaTypeError extends APIError {
+    /**
+     * Create a new `UnsupportedMediaType` error.
+     * @param {string} [message='Unsupported Media Type'] - The error message.
+     */
+    constructor(message = 'Unsupported Media Type') {
+        super(415, message);
+    }
+}
+
 module.exports = {
     APIError,
     BadRequestError,
@@ -102,4 +115,5 @@ module.exports = {
     ForbiddenError,
     NotFoundError,
     InternalServerError,
+    UnSupportedMediaTypeError,
 };

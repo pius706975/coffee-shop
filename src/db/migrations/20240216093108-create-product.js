@@ -12,12 +12,12 @@ module.exports = {
                 type: Sequelize.STRING,
             },
             description: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
             },
             price: {
                 type: Sequelize.DECIMAL,
             },
-            category: {
+            category_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
@@ -29,6 +29,7 @@ module.exports = {
             },
             image: {
                 type: Sequelize.STRING,
+                allowNull: true,
             },
             sold: {
                 type: Sequelize.BIGINT,

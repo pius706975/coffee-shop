@@ -1,9 +1,15 @@
-const { Category } = require('../../../db/models');
+const { User, Category } = require('../../../db/models');
 const { NotFoundError } = require('../../../utils/api.errors');
+const { verifyJWT } = require('../../user/auth/jwt.service');
 
 const CategoryService = {};
 
-CategoryService.AddCategory = async (requestBody) => {
+CategoryService.AddCategory = async (accessToken, requestBody) => {
+    const decodedToken = await verifyJWT({ token: accessToken });
+    const payload = { userId: decodedToken.userId };
+    const user = await await User.findByPk(payload.userId);
+    if (!user) throw new NotFoundError('User not found');
+
     const { name } = requestBody;
     const newData = await Category.create({
         name,
@@ -12,14 +18,26 @@ CategoryService.AddCategory = async (requestBody) => {
     return newData;
 };
 
-CategoryService.UpdateCategory = async (categoryID, newData) => {
+CategoryService.UpdateCategory = async (accessToken, categoryID, newData) => {
+    const decodedToken = await verifyJWT({ token: accessToken });
+    const payload = { userId: decodedToken.userId };
+    const user = await await User.findByPk(payload.userId);
+
+    if (!user) throw new NotFoundError('User not found');
+    
     const data = await CategoryService.GetByID(categoryID);
     const updatedData = await data.update(newData);
 
     return updatedData;
 };
 
-CategoryService.DeleteCategory = async (categoryID) => {
+CategoryService.DeleteCategory = async (accessToken, categoryID) => {
+    const decodedToken = await verifyJWT({ token: accessToken });
+    const payload = { userId: decodedToken.userId };
+    const user = await await User.findByPk(payload.userId);
+
+    if (!user) throw new NotFoundError('User not found');
+    
     const data = await CategoryService.GetByID(categoryID);
     const deletedData = await data.destroy(categoryID);
 

@@ -1,18 +1,28 @@
+const { NotFoundError } = require('../../../utils/api.errors');
 const helper = require('../../../utils/helper');
 const CategoryService = require('./category.service');
 
 const CategoryController = {};
 
 CategoryController.AddCategory = async (httpRequest) => {
+    const authorization = httpRequest.headers.Authorization;
+    if (!authorization) throw new NotFoundError('User not found');
+
+    const accessToken = authorization.split(' ')[1];
     const newData = httpRequest.body;
-    const result = await CategoryService.AddCategory(newData);
+    const result = await CategoryService.AddCategory(accessToken, newData);
+
     return helper.generateResponse(result);
 };
 
 CategoryController.UpdateCategory = async (httpRequest) => {
+    const authorization = httpRequest.headers.Authorization;
+    if (!authorization) throw new NotFoundError('User not found');
+
+    const accessToken = authorization.split(' ')[1];
     const { id } = httpRequest.params;
     const newData = httpRequest.body;
-    const result = await CategoryService.UpdateCategory(id, newData);
+    const result = await CategoryService.UpdateCategory(accessToken, id, newData);
 
     return {
         statusCode: 200,
@@ -24,12 +34,16 @@ CategoryController.UpdateCategory = async (httpRequest) => {
 };
 
 CategoryController.DeleteCategory = async (httpRequest) => {
+    const authorization = httpRequest.headers.Authorization;
+    if (!authorization) throw new NotFoundError('User not found');
+
+    const accessToken = authorization.split(' ')[1];
     const { id } = httpRequest.params;
-    await CategoryService.DeleteCategory(id);
+    await CategoryService.DeleteCategory(accessToken, id);
 
     return {
         statusCode: 200,
-        data: { message: 'Category has been deleted' },
+        data: { message: 'Category is deleted successfully' },
     };
 };
 

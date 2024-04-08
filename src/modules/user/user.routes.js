@@ -6,6 +6,7 @@ const {
 const authentication = require('../../middlewares/auth');
 const UserController = require('./user.controller');
 const userValidator = require('./user.validator');
+const upload = require('../../middlewares/upload/multer.middleware')
 
 router.get(
     '/profile',
@@ -18,6 +19,13 @@ router.put(
     authentication,
     makeValidatorCallback(userValidator.ValidateUserUpdate),
     makeExpressCallback(UserController.UpdateProfile)
+);
+
+router.put(
+    '/edit_picture',
+    authentication,
+    upload.single('image'),
+    makeExpressCallback(UserController.UpdatePicture)
 );
 
 router.put(
