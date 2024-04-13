@@ -3,6 +3,7 @@ const { User, Category, Product } = require('../../db/models');
 const { NotFoundError, BadRequestError } = require('../../utils/api.errors');
 const cloudinary = require('../../middlewares/upload/cloudinary');
 const { Op, sequelize } = require('sequelize');
+const { verifyJWT } = require('../user/auth/jwt.service');
 
 
 const ProductService = {};
@@ -27,7 +28,7 @@ ProductService.AddProduct = async (accessToken, requestBody) => {
     return newProduct;
 };
 
-ProductService.UpdateProduct = async (productID, newData) => {
+ProductService.UpdateProduct = async (accessToken, productID, newData) => {
     const decodedToken = await verifyJWT({ token: accessToken });
     const payload = { userId: decodedToken.userId };
     const user = await await User.findByPk(payload.userId);

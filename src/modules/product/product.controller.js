@@ -1,6 +1,7 @@
 const {
     BadRequestError,
     InternalServerError,
+    NotFoundError,
 } = require('../../utils/api.errors');
 const helper = require('../../utils/helper');
 const ProductService = require('./product.service');

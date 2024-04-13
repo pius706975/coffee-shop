@@ -4,6 +4,8 @@ const {
     makeValidatorCallback,
     makeExpressCallback,
 } = require('../../middlewares');
+const authentication = require('../../middlewares/auth')
+const {Admin} = require('../../middlewares/authorize')
 const productValidator = require('./product.validator');
 const controller = require('./product.controller');
 
@@ -19,7 +21,7 @@ router.get('/', makeExpressCallback(controller.GetAllProducts));
 
 router.get('/:id', makeExpressCallback(controller.GetProductByID));
 
-router.put('/:id', makeExpressCallback(controller.UpdateProduct));
+router.put('/:id', authentication, Admin, makeExpressCallback(controller.UpdateProduct));
 
 // TODO: fix the upload image function
 router.put(
