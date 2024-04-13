@@ -1,8 +1,8 @@
 const http = require('http');
 const stoppable = require('stoppable');
-const app = require('./app');
-const normalizePort = require('./utils/normalize.port');
-const gracefulShutdown = require('./utils/graceful.shutdown');
+const app = require('./src/app');
+const normalizePort = require('./src/utils/normalize.port');
+const gracefulShutdown = require('./src/utils/graceful.shutdown');
 
 /**
  * get port from environment and store in express

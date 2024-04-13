@@ -3,6 +3,7 @@ const roleRoutes = require('../modules/user/role/role.routes');
 const authRoutes = require('../modules/user/auth/auth.routes');
 const userRoutes = require('../modules/user/user.routes');
 const categoryRoutes = require('../modules/product/category/category.routes');
+const productRoutes = require('../modules/product/product.routes');
 
 const routes = [
     {
@@ -20,6 +21,10 @@ const routes = [
     {
         path: '/product-category',
         route: categoryRoutes,
+    },
+    {
+        path: '/product',
+        route: productRoutes,
     },
 ];
 

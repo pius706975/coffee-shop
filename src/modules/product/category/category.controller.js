@@ -4,7 +4,6 @@ const CategoryService = require('./category.service');
 
 const CategoryController = {};
 
-// TODO: Create authentication and authorization for product category services
 CategoryController.AddCategory = async (httpRequest) => {
     const authorization = httpRequest.headers.Authorization;
     if (!authorization) throw new NotFoundError('User not found');
@@ -17,9 +16,13 @@ CategoryController.AddCategory = async (httpRequest) => {
 };
 
 CategoryController.UpdateCategory = async (httpRequest) => {
+    const authorization = httpRequest.headers.Authorization;
+    if (!authorization) throw new NotFoundError('User not found');
+
+    const accessToken = authorization.split(' ')[1];
     const { id } = httpRequest.params;
     const newData = httpRequest.body;
-    const result = await CategoryService.UpdateCategory(id, newData);
+    const result = await CategoryService.UpdateCategory(accessToken, id, newData);
 
     return {
         statusCode: 200,
@@ -31,8 +34,12 @@ CategoryController.UpdateCategory = async (httpRequest) => {
 };
 
 CategoryController.DeleteCategory = async (httpRequest) => {
+    const authorization = httpRequest.headers.Authorization;
+    if (!authorization) throw new NotFoundError('User not found');
+
+    const accessToken = authorization.split(' ')[1];
     const { id } = httpRequest.params;
-    await CategoryService.DeleteCategory(id);
+    await CategoryService.DeleteCategory(accessToken, id);
 
     return {
         statusCode: 200,

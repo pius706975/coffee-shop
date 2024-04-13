@@ -2,5 +2,5 @@
 JWT_SIGN_OPTIONS:
   issuer: coffee_shop
   audience: https://example.in
-  expiresIn: 15d
+  expiresIn: 10h
 API_PREFIX: /api/v1
