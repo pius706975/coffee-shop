@@ -92,4 +92,15 @@ ProductController.GetProductByID = async (httpRequest) => {
     };
 };
 
+ProductController.SearchProductByCategory = async (httpRequest)=>{
+    const {category} = httpRequest.query
+    if (!category) throw new BadRequestError('Category name is required')
+
+    const result = await ProductService.SearchProductByCategory(category)
+    return {
+        statusCode: 200,
+        data: result
+    }
+}
+
 module.exports = ProductController;

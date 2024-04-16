@@ -2,7 +2,7 @@ const { promisify } = require('util');
 const { User, Category, Product } = require('../../db/models');
 const { NotFoundError, BadRequestError } = require('../../utils/api.errors');
 const cloudinary = require('../../middlewares/upload/cloudinary');
-const { Op, sequelize } = require('sequelize');
+const { Op} = require('sequelize');
 const { verifyJWT } = require('../user/auth/jwt.service');
 
 
@@ -116,21 +116,24 @@ ProductService.GetProductByID = async (productID) => {
     return result;
 };
 
-ProductService.GetProductByID = async (productID) => {
-    const result = await Product.findOne({
+ProductService.SearchProductByCategory = async (cateegoryName) => {
+    const result = await Product.findAll({
         where: {
-            id: productID,
             is_deleted: false,
         },
-        include: [
-            {
+        include: [{
                 model: Category,
                 as: 'categoryData',
-            },
-        ],
+                where: {
+                    name: {
+                        [Op.iLike]: `%${cateegoryName}%`
+                    }
+                },
+                required: true
+            }],
     });
 
-    if (result <= 0 || result.is_deleted === true)
+    if (!result || result <= 0 || result.is_deleted === true)
         throw new NotFoundError('No product found');
 
     return result;

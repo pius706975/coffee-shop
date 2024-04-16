@@ -19,6 +19,8 @@ router.post(
 
 router.get('/', makeExpressCallback(controller.GetAllProducts));
 
+router.get('/search', makeExpressCallback(controller.SearchProductByCategory));
+
 router.get('/:id', makeExpressCallback(controller.GetProductByID));
 
 router.put('/:id', authentication, Admin, makeExpressCallback(controller.UpdateProduct));
