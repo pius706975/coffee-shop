@@ -64,7 +64,7 @@ ProductService.UpdateProductPicture = async (productID, file) => {
     }
 };
 
-ProductService.DeleteProduct = async (productID) => {
+ProductService.DeleteProduct = async (accessToken, productID) => {
     const decodedToken = await verifyJWT({ token: accessToken });
     const payload = { userId: decodedToken.userId };
     const user = await await User.findByPk(payload.userId);
