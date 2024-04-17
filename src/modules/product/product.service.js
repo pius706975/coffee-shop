@@ -89,6 +89,7 @@ ProductService.GetAllProducts = async () => {
                 as: 'categoryData',
             },
         ],
+        order: [['created_at', 'DESC']]
     });
     if (product <= 0 || product.is_deleted === true)
         throw new NotFoundError(`Product doesn't exist`);
@@ -116,21 +117,22 @@ ProductService.GetProductByID = async (productID) => {
     return result;
 };
 
-ProductService.SearchProductByCategory = async (cateegoryName) => {
+ProductService.SearchProductByCategory = async (categoryName) => {
     const result = await Product.findAll({
         where: {
             is_deleted: false,
         },
         include: [{
-                model: Category,
-                as: 'categoryData',
-                where: {
-                    name: {
-                        [Op.iLike]: `%${cateegoryName}%`
-                    }
-                },
-                required: true
-            }],
+            model: Category,
+            as: 'categoryData',
+            where: {
+                name: {
+                    [Op.iLike]: `%${categoryName}%`
+                }
+            },
+            required: true,
+        }],
+        order: [['created_at', 'DESC']]
     });
 
     if (!result || result <= 0 || result.is_deleted === true)
