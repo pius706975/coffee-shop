@@ -103,4 +103,12 @@ ProductController.SearchProductByCategory = async (httpRequest)=>{
     }
 }
 
+ProductController.GetAllCategorizedProducts = async ()=>{
+    const result = await ProductService.GetAllCategorizedProducts()
+    return {
+        statusCode: 200,
+        data: result
+    }
+}
+
 module.exports = ProductController;

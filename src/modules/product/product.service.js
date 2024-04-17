@@ -117,6 +117,26 @@ ProductService.GetProductByID = async (productID) => {
     return result;
 };
 
+ProductService.GetAllCategorizedProducts = async ()=>{
+    const result = await Category.findAll({
+        include: [{
+            model: Product,
+            as: 'products',
+            where: {
+                is_deleted: false,
+            },
+            required: false,
+            order: [['created_at', 'DESC']]
+        }],
+        // order: [['created_at', 'DESC']]
+    });
+
+    return result.map(cat => ({
+        categoryName: cat.name,
+        products: cat.products
+    }))
+}
+
 ProductService.SearchProductByCategory = async (categoryName) => {
     const result = await Product.findAll({
         where: {
