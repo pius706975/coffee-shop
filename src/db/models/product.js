@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     }
     Product.init(
         {
+            id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true
+            },
             name: {
                 type: DataTypes.STRING,
             },
@@ -20,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.DECIMAL,
             },
             category_id: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.UUID,
                 references: {
                     model: 'Categories',
                     key: 'id',

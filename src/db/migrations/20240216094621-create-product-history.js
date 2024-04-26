@@ -3,13 +3,12 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('ProductHistories', {
             id: {
-                type: Sequelize.INTEGER,
-                autoIncrement: true,
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
                 primaryKey: true,
-                allowNull: false,
             },
             user_id: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.UUID,
                 references: {
                     model: 'Users',
                     key: 'id',
@@ -18,7 +17,7 @@ module.exports = {
                 onDelete: 'SET NULL',
             },
             product_id: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.UUID,
                 references: {
                     model: 'Products',
                     key: 'id',

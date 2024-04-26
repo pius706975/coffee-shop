@@ -12,7 +12,7 @@ module.exports = (roles) => (req, res, next) => {
 };
 
 module.exports.Admin = async (req, res, next) => {
-    if (!req.context.role || req.context.role !== 2)
+    if (!req.context.role || req.context.role !== 'bf42fc5a-f1a4-416c-be45-17ca937d98db')
         throw new UnauthorizedError('Only admin is allowed');
     return next();
 };

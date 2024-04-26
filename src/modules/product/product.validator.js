@@ -26,8 +26,8 @@ productValidator.ValidateAddProduct = (httpRequest) => {
             'number.base': 'Price must be a decimal',
             'any.required': 'Price is required',
         }),
-        category_id: Joi.number().required().messages({
-            'number.base': 'Category id must be an integer',
+        category_id: Joi.string().required().messages({
+            'number.base': 'Category id must be a string',
             'any.required': 'Category id is required',
         }),
         image: Joi.string().messages({
@@ -52,8 +52,8 @@ productValidator.ValidateUpdateProduct = (httpRequest) => {
             'number.base': 'Price must be a decimal',
             'number.empty': 'Price is required',
         }),
-        category_id: Joi.number().allow('').optional().messages({
-            'number.base': 'Category id must be an integer',
+        category_id: Joi.string().allow('').optional().messages({
+            'number.base': 'Category id must be a string',
             'number.empty': 'Category id is required',
         }),
         image: Joi.string().allow('').optional().messages({

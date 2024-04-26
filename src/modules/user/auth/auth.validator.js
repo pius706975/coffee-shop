@@ -63,7 +63,7 @@ authValidator.validateRegister = (httpRequest) => {
                 'any.required': 'Password is required',
             }),
 
-        role: Joi.number(),
+        role: Joi.string(),
     });
 
     return schema.validate(httpRequest.body, options);

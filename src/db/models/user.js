@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     }
     User.init(
         {
+            id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true
+            },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -34,13 +39,13 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             role: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false,
-                defaultValue: 1,
                 references: {
                     model: 'Role',
                     key: 'id',
                 },
+                defaultValue: '518236ed-45df-4b18-9cfa-ca83be57eafc',
             },
             otp_code: {
                 type: DataTypes.STRING,
@@ -61,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             hooks: {
+                // TODO: fix the default value of the role 
                 beforeCreate: (user) => {
                     user.password = bcrypt.hashSync(user.password, 10);
                 },
